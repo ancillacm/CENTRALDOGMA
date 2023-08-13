@@ -1,0 +1,60 @@
+# DNA seq of corona virus (multiple string)
+dna='''ATGTACTCATTCGTTTCGGAAGAGACAGGTACGTTAATAGTTAATAGCGTACTTCTTTTTCTTGCTTTCG
+TGGTATTCTTGCTAGTTACACTAGCCATCCTTACTGCGCTTCGATTGTGTGCGTACTGCTGCAATATTGT
+TAACGTGAGTCTTGTAAAACCTTCTTTTTACGTTTACTCTCGTGTTAAAAATCTGAATTCTTCTAGAGTT
+CCTGATCTTCTGGTCTAA'''
+
+#to make them into seperated lines
+
+new_dna=dna.replace("\n","")
+
+#print it
+
+print(f"THE DNA SEQ IS:\n\n{new_dna}")
+
+#make trans of ATGC TO UACG
+
+rna=dna.maketrans('ATGC','UACG')
+
+#translate
+
+newrna=dna.translate(rna)
+nownewrna=newrna.replace("\n","")
+print(f'THE RNA SEQ IS:\n\n{nownewrna}')
+
+#codon table
+
+rnacodons = {
+    # 'M' - START, '*' - STOP
+    "GCU": "A", "GCC": "A", "GCA": "A", "GCG": "A",
+    "UGU": "C", "UGC": "C",
+    "GAU": "D", "GAC": "D",
+    "GAA": "E", "GAG": "E",
+    "UUU": "F", "UUC": "F",
+    "GGU": "G", "GGC": "G", "GGA": "G", "GGG": "G",
+    "CAU": "H", "CAC": "H",
+    "AUA": "I", "AUU": "I", "AUC": "I",
+    "AAA": "K", "AAG": "K",
+    "UUA": "L", "UUG": "L", "CUU": "L", "CUC": "L", "CUA": "L", "CUG": "L",
+    "AUG": "M",
+    "AAU": "N", "AAC": "N",
+    "CCU": "P", "CCC": "P", "CCA": "P", "CCG": "P",
+    "CAA": "Q", "CAG": "Q",
+    "CGU": "R", "CGC": "R", "CGA": "R", "CGG": "R", "AGA": "R", "AGG": "R",
+    "UCU": "S", "UCC": "S", "UCA": "S", "UCG": "S", "AGU": "S", "AGC": "S",
+    "ACU": "T", "ACC": "T", "ACA": "T", "ACG": "T",
+    "GUU": "V", "GUC": "V", "GUA": "V", "GUG": "V",
+    "UGG": "W",
+    "UAU": "Y", "UAC": "Y",
+    "UAA": "*", "UAG": "*", "UGA": "*"
+}
+protein=''
+#for loop
+#making the rna sequence as codon(3bp)and slicing it
+#example if i=0 then i+3=2 since it the last one will be n-1
+#append the empty string protein, whatever the value comes from dna codon will
+#appended in the empty protein variable
+for i in range(0,len(nownewrna),3):
+  codon=nownewrna[i:i+3]
+  protein +=rnacodons[codon]
+print(f'THE PROTEIN SEQUENCE IS:\n\n{protein}')
